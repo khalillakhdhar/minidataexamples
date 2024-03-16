@@ -52,9 +52,10 @@ public ResponseEntity<List<UserDTO>> getUsers(Pageable pageable)
 	
 }
 @PostMapping
-public ResponseEntity<UserDTO> addOne(@Valid @RequestBody User user)
+public ResponseEntity<UserDTO> addOne(@Valid @RequestBody UserDTO user)
 {
-User us= userService.creaOneUser(user);
+	User u=UserMapper.convertToEntity(user);
+User us= userService.creaOneUser(u);
 UserDTO usd=UserMapper.convertToDTO(us);
 return ResponseEntity.ok(usd);
 
