@@ -34,23 +34,15 @@ public class UserController {
 	private final UserServiceInterface userService;
 	//private final UserMapper userMapper;
 @GetMapping
-public ResponseEntity<List<UserDTO>> getUsers(Pageable pageable)
-{
-	
-	Page<User> usersPage=userService.getUsers(pageable);
-	List<UserDTO> userDTOs=new ArrayList<UserDTO>();
-	usersPage.forEach(us->{
-		userDTOs.add(UserMapper.convertToDTO(us));
-		
-	});
-	return ResponseEntity.ok(userDTOs);
-	
-	//List<UserDTO> userDTOs=usersPage.getContent().stream()
-		//	.map(userMapper::convertToDTO)
-			//.collect(Collectors.toList());
-	//return ResponseEntity.ok(userService.getUsers());
-	
+
+public ResponseEntity<List<UserDTO>> getUsers(Pageable pageable) {
+    Page<User> usersPage = userService.getUsers(pageable);
+    List<UserDTO> userDTOs = usersPage.getContent().stream()
+            .map(UserMapper::convertToDTO)
+            .collect(Collectors.toList());
+    return ResponseEntity.ok(userDTOs);
 }
+
 @PostMapping
 public ResponseEntity<UserDTO> addOne(@Valid @RequestBody UserDTO user)
 {
