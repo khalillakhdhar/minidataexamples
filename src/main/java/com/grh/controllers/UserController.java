@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 	private final UserServiceInterface userService;
-	private final UserMapper userMapper;
+	//private final UserMapper userMapper;
 @GetMapping
 public ResponseEntity<List<UserDTO>> getUsers(Pageable pageable)
 {
@@ -40,7 +40,7 @@ public ResponseEntity<List<UserDTO>> getUsers(Pageable pageable)
 	Page<User> usersPage=userService.getUsers(pageable);
 	List<UserDTO> userDTOs=new ArrayList<UserDTO>();
 	usersPage.forEach(us->{
-		userDTOs.add(userMapper.convertToDTO(us));
+		userDTOs.add(UserMapper.convertToDTO(us));
 		
 	});
 	return ResponseEntity.ok(userDTOs);
@@ -55,7 +55,7 @@ public ResponseEntity<List<UserDTO>> getUsers(Pageable pageable)
 public ResponseEntity<UserDTO> addOne(@Valid @RequestBody User user)
 {
 User us= userService.creaOneUser(user);
-UserDTO usd=userMapper.convertToDTO(us);
+UserDTO usd=UserMapper.convertToDTO(us);
 return ResponseEntity.ok(usd);
 
 }
