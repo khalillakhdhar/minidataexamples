@@ -38,7 +38,7 @@ public class UserController {
 public ResponseEntity<List<UserDTO>> getUsers(Pageable pageable) {
     Page<User> usersPage = userService.getUsers(pageable);
     List<UserDTO> userDTOs = usersPage.getContent().stream()
-            .map(UserMapper::convertToDTO)
+            .map(UserMapper::convertToDTO) // retour de map aura l'action suivante
             .collect(Collectors.toList());
     return ResponseEntity.ok(userDTOs);
 }
