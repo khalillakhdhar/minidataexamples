@@ -43,6 +43,12 @@ public ResponseEntity<List<UserDTO>> getUsers(Pageable pageable) {
     return ResponseEntity.ok(userDTOs);
 }
 
+@GetMapping("/{id}")
+public ResponseEntity<UserDTO> getOneUser(@PathVariable long id)
+{
+return ResponseEntity.ok(UserMapper.convertToDTO(userService.getOneUser(id).get()));	
+}
+
 @PostMapping
 public ResponseEntity<UserDTO> addOne(@Valid @RequestBody UserDTO user)
 {
